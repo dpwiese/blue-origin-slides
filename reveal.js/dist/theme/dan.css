@@ -883,16 +883,13 @@ content: "Example (" attr(name) ") ";
 @media print {
   .backgrounds {
     background-color: var(--r-background-color);
- 
+  }
 }
-}
-
-
-
-
-
-
 
 #title-slide {
   margin-top: 300px;
+}
+
+i {
+  font-style: italic;
 }
