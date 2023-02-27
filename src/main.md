@@ -249,7 +249,6 @@ transition: fade
 
 <ul>
 <li class="fragment" data-fragment-index="2" style="margin-bottom: 30px;">This model adds integral control on the <i>regulated output</i> and includes model uncertainty</li>
-<li class="fragment" data-fragment-index="3" style="margin-bottom: 30px;">$u$&nbsp; is the input and &nbsp;$z_{\text{cmd}}$&nbsp; is the command</li>
 <li class="fragment" data-fragment-index="4" style="margin-bottom: 30px;">Some comments</li>
 <ul>
 <li class="fragment" data-fragment-index="5" style="margin-bottom: 30px;">Uncertainty enters through the columns of &nbsp;$B$&nbsp;</li>
@@ -306,6 +305,46 @@ transition: fade
     y(t)&=Cx(t)
   \end{split}
 \end{equation*}
+
+</section>
+
+<section>
+
+## Model Construction
+
+<ul>
+<li class="fragment" data-fragment-index="1" style="margin-bottom: 30px;">That there is no feedthrough of the control to the output is common in aerospace systems</li>
+<ul>
+<li class="fragment" data-fragment-index="2" style="margin-bottom: 30px;">Control inputs create moments and angular velocities are measured</li>
+<li class="fragment" data-fragment-index="3" style="margin-bottom: 30px;">One integration between input and output</li>
+<li class="fragment" data-fragment-index="3" style="margin-bottom: 30px;">Direct feedthrough, as occurs when measuring linear accelerations, can be accommodated using fairly trivial modification to control design to follow</li>
+</ul>
+<li class="fragment" data-fragment-index="4" style="margin-bottom: 30px;">Uncertainty entering through control channels is reasonable given the uncertainty in moment coefficients in &nbsp;$A$</li>
+</ul>
+
+<div class="fragment" data-fragment-index="4">
+
+\begin{equation*}
+  \begin{bmatrix}
+    \dot{\alpha} \\
+    \dot{q}
+  \end{bmatrix}=
+  \begin{bmatrix}
+    0 & 1 \\
+    M_{\alpha} & M_{q}
+  \end{bmatrix}
+  \begin{bmatrix}
+    \alpha \\
+    q
+  \end{bmatrix}+
+  \begin{bmatrix}
+    0 \\
+    M_{\delta_{e}}
+  \end{bmatrix}
+  \delta_{e}
+\end{equation*}
+
+</div>
 
 </section>
 
@@ -451,7 +490,7 @@ transition: fade
 <section>
 
 <ul>
-<li class="fragment" data-fragment-index="1" style="margin-bottom: 30px;">The statement of strict positive realness</li>
+<li class="fragment" data-fragment-index="1" style="margin-bottom: 30px;">The statement of strict positive realness can be interpreted as the phase shift between the input and output being in &nbsp;$(-90^{\circ}, 90^{\circ})$</li>
 </ul>
 
 </section>
@@ -550,16 +589,19 @@ transition: fade
 <li class="fragment" data-fragment-index="4" style="margin-bottom: 30px;"><b>This control synthesis process involves a few steps of matrix algebra, and provides a guaranteed-stable closed-loop system with sufficient degrees of freedom that can be leveraged to improve the robustness proprties of the baseline controller</b></li>
 </ul>
 
-# Inner-Loop Controller
+# Inner-Loop Controllers
 
 <ul>
-<li class="fragment" data-fragment-index="1" style="margin-bottom: 30px;">TBD</li>
+<li class="fragment" data-fragment-index="1" style="margin-bottom: 30px;">This control synthesis process is repeated for each of the three inner-loop subsystems</li>
+<li class="fragment" data-fragment-index="2" style="margin-bottom: 30px;">These combined controllers facilitate command tracking of velocity $V_{T}$, pitch rate $q$, and roll rate $p$</li>
+<li class="fragment" data-fragment-index="2" style="margin-bottom: 30px;">The inner-loop control subsystems can be analyzed, and the controller performance on the 6-DOF nonlinear model evaluated, demonstrating the capabilities of this method</li>
 </ul>
 
 # Comments on Closed-Loop Reference Model
 
 <ul>
 <li class="fragment" data-fragment-index="1" style="margin-bottom: 30px;">The closed-loop reference model provides beneficial properties, especially with regards to transient behavior</li>
+<li class="fragment" data-fragment-index="4" style="margin-bottom: 30px;">The tuning of &nbsp;$L$&nbsp; through the many available degrees of freedom enables good transients to be achieved</li>
 </ul>
 
 <div class="col-container">
@@ -574,3 +616,19 @@ transition: fade
 
 </div>
 </div>
+
+# Robustness Properties
+
+<ul>
+<li class="fragment" data-fragment-index="1" style="margin-bottom: 30px;">The choice of &nbsp;$L$&nbsp; also affects robustness properties of the underlying LQG-like controller</li>
+<li class="fragment" data-fragment-index="2" style="margin-bottom: 30px;">In the chart below, a single parameter was varied similar to LTR</li>
+</ul>
+
+<img class="fragment" data-fragment-index="2" src="../img/gang-of-six.jpg" width="1300"/>
+
+# Outer-Loop Controller
+
+<ul>
+<li class="fragment" data-fragment-index="1" style="margin-bottom: 30px;">While the inner-loop controllers satisfied the control goal and facilitated tracking of the vehicle's angular rates, <i>suitable angular rate commands needed to be specified such that the vehicle traversed some desired trajectory</i></li>
+<li class="fragment" data-fragment-index="2" style="margin-bottom: 30px;">Such commands, generated by an <i>outer-loop controller</i>, were often done relying on sufficient timescale separation and without guaranteeing stability of the closed-loop system</li>
+</ul>
