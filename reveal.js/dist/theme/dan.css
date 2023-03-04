@@ -893,3 +893,11 @@ content: "Example (" attr(name) ") ";
 i {
   font-style: italic;
 }
+
+#section-2-technical-presentation h1 {
+  display: none;
+}
+
+#section-3-why-blue-origin h1 {
+  display: none;
+}
