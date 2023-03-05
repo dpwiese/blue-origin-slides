@@ -100,6 +100,9 @@ transition: fade
 
 # Problem Statement
 
+<div class="col-container">
+<div class="col" style="flex-grow:2;">
+
 <p style="display: flex;">Design a controller for a hypersonic vehicle that can</p>
 
 <ul>
@@ -109,6 +112,14 @@ transition: fade
 <li class="fragment" data-fragment-index="5" style="margin-bottom: 30px;"><b>Avoid unstart</b></li>
 <li class="fragment" data-fragment-index="6" style="margin-bottom: 30px;">Ensure satisfactory <b>command tracking</b></li>
 </ul>
+
+</div>
+<div class="col">
+
+<img src="../img/ghvFlyingLarge.png" width="600"/>
+
+</div>
+</div>
 
 # Plant Overview (1)
 
@@ -191,7 +202,7 @@ transition: fade
 <li class="fragment" data-fragment-index="1" style="margin-bottom: 30px;">The nonlinear equations of motion are <b>linearized</b></li>
 <li class="fragment" data-fragment-index="2" style="margin-bottom: 30px;">Modal analysis is use to reduce the linear model into <b>several lower-order models</b></li>
 <li class="fragment" data-fragment-index="3" style="margin-bottom: 30px;">The reduced linear models are <b>further partitioned</b></li>
-<li class="fragment" data-fragment-index="4" style="margin-bottom: 30px;"><b>Uncertainty</b> manifests itself as shown above</li>
+<li class="fragment" data-fragment-index="4" style="margin-bottom: 30px;"><b>Uncertainty</b> manifests itself as shown above (more on this later)</li>
 </ul>
 
 </section>
@@ -310,6 +321,46 @@ The vehicle has combined automated functions, such as acceleration and steering,
 
 ## Model Construction
 
+<ul>
+<li class="fragment" data-fragment-index="1" style="margin-bottom: 30px;">That there is no feedthrough of the control to the output is common in aerospace systems</li>
+<ul>
+<li class="fragment" data-fragment-index="2" style="margin-bottom: 30px;">Control inputs create moments and angular velocities are measured</li>
+<li class="fragment" data-fragment-index="3" style="margin-bottom: 30px;">One integration between input and output</li>
+<li class="fragment" data-fragment-index="4" style="margin-bottom: 30px;">Direct feedthrough, as occurs when measuring linear accelerations, can be accommodated using fairly trivial modification to control design to follow</li>
+</ul>
+<li class="fragment" data-fragment-index="5" style="margin-bottom: 30px;">Uncertainty entering through control channels is reasonable given the uncertainty in moment coefficients in &nbsp;$A$</li>
+</ul>
+
+<div class="fragment" data-fragment-index="5">
+
+\begin{equation*}
+  \begin{bmatrix}
+    \dot{\alpha} \\
+    \dot{q}
+  \end{bmatrix}=
+  \begin{bmatrix}
+    0 & 1 \\
+    M_{\alpha} & M_{q}
+  \end{bmatrix}
+  \begin{bmatrix}
+    \alpha \\
+    q
+  \end{bmatrix}+
+  \begin{bmatrix}
+    0 \\
+    M_{\delta_{e}}
+  \end{bmatrix}
+  \delta_{e}
+\end{equation*}
+
+</div>
+
+</section>
+
+<section>
+
+## Model Construction
+
 \begin{align}
   \dot{x}_{p}(t) &= A_{p}x_{p}(t) + B_{p}\bigr(\Lambda u(t) + \Psi_{p}^{\top}x_{p}(t)\bigr) \\
   y_{p}(t) &= C_{p}x_{p}(t) \\
@@ -356,46 +407,6 @@ The vehicle has combined automated functions, such as acceleration and steering,
 
 </section>
 
-<section>
-
-## Model Construction
-
-<ul>
-<li class="fragment" data-fragment-index="1" style="margin-bottom: 30px;">That there is no feedthrough of the control to the output is common in aerospace systems</li>
-<ul>
-<li class="fragment" data-fragment-index="2" style="margin-bottom: 30px;">Control inputs create moments and angular velocities are measured</li>
-<li class="fragment" data-fragment-index="3" style="margin-bottom: 30px;">One integration between input and output</li>
-<li class="fragment" data-fragment-index="3" style="margin-bottom: 30px;">Direct feedthrough, as occurs when measuring linear accelerations, can be accommodated using fairly trivial modification to control design to follow</li>
-</ul>
-<li class="fragment" data-fragment-index="4" style="margin-bottom: 30px;">Uncertainty entering through control channels is reasonable given the uncertainty in moment coefficients in &nbsp;$A$</li>
-</ul>
-
-<div class="fragment" data-fragment-index="4">
-
-\begin{equation*}
-  \begin{bmatrix}
-    \dot{\alpha} \\
-    \dot{q}
-  \end{bmatrix}=
-  \begin{bmatrix}
-    0 & 1 \\
-    M_{\alpha} & M_{q}
-  \end{bmatrix}
-  \begin{bmatrix}
-    \alpha \\
-    q
-  \end{bmatrix}+
-  \begin{bmatrix}
-    0 \\
-    M_{\delta_{e}}
-  \end{bmatrix}
-  \delta_{e}
-\end{equation*}
-
-</div>
-
-</section>
-
 # Assumptions
 
 \begin{equation*}
@@ -419,14 +430,17 @@ The vehicle has combined automated functions, such as acceleration and steering,
 <ul>
 <li class="fragment" data-fragment-index="1" style="margin-bottom: 30px;">Controllability and observability are standard assumptions satisfied for vehicle models such as the above</li>
 <li class="fragment" data-fragment-index="2" style="margin-bottom: 30px;">Full rank of &nbsp;$B,\;C,\;CB$&nbsp; implies that inputs and outputs are not redundant, and the MIMO equivalent of relative degree one</li>
-<li class="fragment" data-fragment-index="3" style="margin-bottom: 30px;">Strict stability (minimum phase) of zeros is straightforward to satisfy for vehicle models such as the above</li>
-<li class="fragment" data-fragment-index="4" style="margin-bottom: 30px;">Sign of &nbsp;$\Lambda$&nbsp; known indicates no control reversal</li>
 <ul>
-<li class="fragment" data-fragment-index="5" style="margin-bottom: 30px;">Diagonal structure indicates loss of control effectiveness</li>
+<li class="fragment" data-fragment-index="3" style="margin-bottom: 30px;">One integration between aerodynamic moments and angular rates</li>
 </ul>
-<li class="fragment" data-fragment-index="6" style="margin-bottom: 30px;">The bound &nbsp;$\Psi_{\text{max}}$&nbsp; need not be tight, and in practice can be easily selected</li>
+<li class="fragment" data-fragment-index="4" style="margin-bottom: 30px;">Strict stability (minimum phase) of zeros is straightforward to satisfy for vehicle models such as the above</li>
+<li class="fragment" data-fragment-index="5" style="margin-bottom: 30px;">Sign of &nbsp;$\Lambda$&nbsp; known indicates no control reversal</li>
 <ul>
-<li class="fragment" data-fragment-index="7" style="margin-bottom: 30px;">For example, the extent of a CG shift is bounded by the physical extents of a vehicle</li>
+<li class="fragment" data-fragment-index="6" style="margin-bottom: 30px;">Diagonal structure indicates loss of control effectiveness</li>
+</ul>
+<li class="fragment" data-fragment-index="7" style="margin-bottom: 30px;">The bound &nbsp;$\Psi_{\text{max}}$&nbsp; need not be tight, and in practice can be easily selected</li>
+<ul>
+<li class="fragment" data-fragment-index="8" style="margin-bottom: 30px;">For example, the extent of a CG shift is bounded by the physical extents of a vehicle</li>
 </ul>
 </ul>
 
@@ -649,11 +663,28 @@ The vehicle has combined automated functions, such as acceleration and steering,
 
 # Robustness Properties
 
+<section>
+
 <ul>
 <li class="fragment" data-fragment-index="1" style="margin-bottom: 30px;">The choice of &nbsp;$\boldsymbol{\color{red}S_{\color{red}1}}$&nbsp; and &nbsp;$\boldsymbol{\color{red}L}$&nbsp; also affects robustness properties of the underlying LQG-like controller</li>
 </ul>
 
 <img class="fragment" data-fragment-index="2" src="../img/gang-of-six.jpg" width="1300"/>
+
+</section>
+<section>
+
+<!--
+A measure of the “smallness” of the matrix is needed: the singular values.
+
+Singular value decomposition (SVD) is a factorization of a real or complex matrix. It generalizes the eigendecomposition of a square normal matrix with an orthonormal eigenbasis to any mxn matrix
+
+When the matrix M is a transfer function matrix H(jw), the magnitude at a any frequency w will depend on the direction of the input. Different singular values will be excited depending on the input. However, for any input the magnitude of H(jw) is bounded above by its maximum singular value \sigma(H(jw)) and below by its minimum singular value \sigma(H(jw)). For performance and stability robustness \sigma(H(jw)) should be large at low frequencies and \sigma(H(jw)) should be small at high frequencies.
+-->
+
+<img class="fragment" data-fragment-index="2" src="../img/linear-loops-block.png" width="1300"/>
+
+</section>
 
 # Comments on Closed-Loop Reference Model
 
@@ -828,16 +859,20 @@ The vehicle has combined automated functions, such as acceleration and steering,
 
 <!--
 https://www.blueorigin.com/careers/work-culture/
+https://www.blueorigin.com/about-blue/
 -->
 
 <ul>
-<li class="fragment" data-fragment-index="1" style="margin-bottom: 30px;">Company</li>
+<li class="fragment" data-fragment-index="1" style="margin-bottom: 30px;"><b>Company</b></li>
 <ul>
-<li class="fragment" data-fragment-index="1" style="margin-bottom: 30px;">Mission</li>
-<li class="fragment" data-fragment-index="1" style="margin-bottom: 30px;">Culture</li>
+<li class="fragment" data-fragment-index="2" style="margin-bottom: 30px;">Mission & Culture</li>
+<li class="fragment" data-fragment-index="3" style="margin-bottom: 30px;">Making type 2 decisions quickly</li>
+<li class="fragment" data-fragment-index="4" style="margin-bottom: 30px;">Conviction, tenacity, humility</li>
 </ul>
-<li class="fragment" data-fragment-index="1" style="margin-bottom: 30px;">Role</li>
+<li class="fragment" data-fragment-index="5" style="margin-bottom: 30px;"><b>Role</b></li>
 <ul>
-<li class="fragment" data-fragment-index="1" style="margin-bottom: 30px;">Value to Blue Origin</li>
+<li class="fragment" data-fragment-index="6" style="margin-bottom: 30px;">Value to Blue Origin</li>
+<li class="fragment" data-fragment-index="7" style="margin-bottom: 30px;">Proven hands-on, empathetic leader</li>
+<li class="fragment" data-fragment-index="8" style="margin-bottom: 30px;">Opportunity to leverage my abilities to solve hard problems</li>
 </ul>
 </ul>
