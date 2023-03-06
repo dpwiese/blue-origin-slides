@@ -11,6 +11,10 @@ height: 1000
 transition: fade
 ---
 
+<!--
+decktape -s 1600x1000 --screenshots file:///Users/dpwiese/Code/dpwiese/blue-origin-slides/src/main.html out.pdf
+-->
+
 # About Me
 
 <div class="col-container">
@@ -18,7 +22,8 @@ transition: fade
 
 <ul>
 <li class="fragment" data-fragment-index="1" style="margin-bottom: 30px;">Mechanical/aerospace engineer by training</li>
-<li class="fragment" data-fragment-index="2" style="margin-bottom: 30px;">Experienced hands-on manager, leading teams to solve hard problems across a breadth of problem spaces</li>
+<li class="fragment" data-fragment-index="2" style="margin-bottom: 30px;">Expert problem solver, with experience across a wide breadth of technical domains</li>
+<li class="fragment" data-fragment-index="3" style="margin-bottom: 30px;">Experienced hands-on manager, leading teams to excellent outcomes regardless of technology stack</li>
 </ul>
 
 </div>
@@ -122,6 +127,10 @@ transition: fade
 </div>
 
 # Plant Overview (1)
+
+<!--
+GHV about 15 feet long with span of 5 feet
+-->
 
 <div class="col-container">
 <div class="col" style="flex-grow:2;">
@@ -427,6 +436,12 @@ The vehicle has combined automated functions, such as acceleration and steering,
 
 # Notes on Assumptions
 
+<!--
+Control of plants with relative degree two is possible under additional assumptions
+In the classical adaptive control, it is that the plant is diagonalizable via filters - that the ith input only affects the ith output
+In modern MRAC output feedback adaptive control, that the plant uncertainty is independent from input uncertainty - no uncertainty is present through the relative degree two inputs
+-->
+
 <ul>
 <li class="fragment" data-fragment-index="1" style="margin-bottom: 30px;">Controllability and observability are standard assumptions satisfied for vehicle models such as the above</li>
 <li class="fragment" data-fragment-index="2" style="margin-bottom: 30px;">Full rank of &nbsp;$B,\;C,\;CB$&nbsp; implies that inputs and outputs are not redundant, and the MIMO equivalent of relative degree one</li>
@@ -496,7 +511,7 @@ The vehicle has combined automated functions, such as acceleration and steering,
 
 <ul>
 <li class="fragment" data-fragment-index="1" style="margin-bottom: 30px;">Output feedback: control depends on &nbsp;$y$&nbsp; only</li>
-<li class="fragment" data-fragment-index="2" style="margin-bottom: 30px;">With $\Theta$,&nbsp;$\dot{\Theta}=0$&nbsp; <b>architecturally this is just an LQG controller</b></li>
+<li class="fragment" data-fragment-index="2" style="margin-bottom: 30px;">In the absence of uncertainty and adpatation, <b>architecturally this is just an LQG controller</b></li>
 <li class="fragment" data-fragment-index="3" style="margin-bottom: 30px;">Control designer must select &nbsp;$\Gamma$&nbsp;, &nbsp;$\boldsymbol{\color{red}S_{\color{red}1}}$&nbsp;, and &nbsp;$\boldsymbol{\color{red}L}$&nbsp;</li>
 <ul>
 <li class="fragment" data-fragment-index="4" style="margin-bottom: 30px;">$\Gamma=\Gamma^{\top}>0$</li>
@@ -723,8 +738,11 @@ When the matrix M is a transfer function matrix H(jw), the magnitude at a any fr
 <ul>
 <li class="fragment" data-fragment-index="2" style="margin-bottom: 30px;">In practice, good controllers were able to be selected using heuristics for the available degrees of freedom</li>
 </ul>
-<li class="fragment" data-fragment-index="3" style="margin-bottom: 30px;">The mapping between the degrees of freedom in the feasible LMI, and the solutions &nbsp;$\boldsymbol{\color{red}L}$&nbsp; should be investigated, along with analytical solutions</li>
+<li class="fragment" data-fragment-index="3" style="margin-bottom: 30px;">The mapping between the degrees of freedom in the feasible LMI, and the solutions &nbsp;$\boldsymbol{\color{red}L}$&nbsp; should be investigated, along with analytical solutions for &nbsp;$\boldsymbol{\color{red}L}$</li>
 <li class="fragment" data-fragment-index="4" style="margin-bottom: 30px;">The robustness properties of the underlying baseline system should be investigated further</li>
+<ul>
+<li class="fragment" data-fragment-index="5" style="margin-bottom: 30px;">In particular, <b>how can these additional degrees of freedom be leveraged to produce the best controller</b></li>
+</ul>
 </ul>
 
 </section>
