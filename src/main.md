@@ -11,10 +11,6 @@ height: 1000
 transition: fade
 ---
 
-<!--
-decktape -s 1600x1000 --screenshots file:///Users/dpwiese/Code/dpwiese/blue-origin-slides/src/main.html out.pdf
--->
-
 # About Me
 
 <div class="col-container">
